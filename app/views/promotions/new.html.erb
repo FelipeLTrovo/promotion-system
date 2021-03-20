@@ -1,6 +1,15 @@
 <h1>Registrar uma promoção</h1>
 
 <%= form_with model: @promotion do |f| %>
+    <% if @promotion.errors.any?%>
+        <h4>Não foi possível. Encontramos alguns erros:</h4>
+        <ul>
+            <% @promotion.errors.full_messages.each do |message|%>
+                <li><%= message %></li>
+        </ul>
+            <% end %>
+    <% end %>
+
     <div>
         <%= f.label :name, "Nome"  %>
         <%= f.text_field :name %>
