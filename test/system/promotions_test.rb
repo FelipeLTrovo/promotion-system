@@ -107,7 +107,7 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_text 'não pode ficar em branco', count: 5
   end
 
-  test 'create and code must be unique' do
+  test 'create and code/name must be unique' do
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
@@ -140,6 +140,58 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_no_text "NATAL10-0101"
     
 
+  end
+
+  test 'update promotion' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                  code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+
+    visit edit_promotion_path(promotion)
+    fill_in 'Nome', with: 'Cyber Monday'
+    fill_in 'Descrição', with: 'Promoção de Cyber Monday'
+    fill_in 'Código', with: 'CYBER15'
+    click_on 'Editar promoção'
+
+    assert_current_path promotion_path(promotion)
+    assert_text "Promoção editada com sucesso"
+    assert_text "Cyber Monday"
+    assert_no_text "Natal"
+  end
+
+  test 'update promotion and attributes cannot be blank' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                  code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+
+    visit edit_promotion_path(promotion)
+    fill_in 'Nome', with: ''
+    fill_in 'Descrição', with: ''
+    fill_in 'Código', with: ''
+    fill_in 'Desconto', with: ''
+    fill_in 'Quantidade de cupons', with: ''
+    fill_in 'Data de término', with: ''
+    click_on 'Editar promoção'
+
+    assert_current_path promotion_path(promotion)
+    assert_no_text "Promoção editada com sucesso"
+    assert_text 'não pode ficar em branco', count: 5
+  end
+
+  test 'update promotion and code/name must be unique' do
+                      Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                      expiration_date: '22/12/2033')
+    edit_promotion =  Promotion.create!(name: 'Cyber Monday', coupon_quantity: 90,
+                      description: 'Promoção de Cyber Monday',
+                      code: 'CYBER15', discount_rate: 15,
+                      expiration_date: '22/12/2033')
+    
+    visit edit_promotion_path(edit_promotion)
+    fill_in 'Nome', with: 'Natal'
+    fill_in 'Código', with: 'NATAL10'
+    click_on 'Editar promoção'
+    assert_text 'deve ser único', count: 2
   end
 
 end
