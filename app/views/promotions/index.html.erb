@@ -9,6 +9,8 @@
         <dd><%= promotion.description %></dd>
         <dt>Desconto <small>em porcentagem</small></dt>
         <dd><%= number_to_percentage promotion.discount_rate, separator: ',', precision: 2 %></dd>
+        <%= link_to 'Editar promoção', edit_promotion_path(promotion.id) %>
+        <%= link_to 'Deletar promoção', promotion_path(promotion.id), method: :delete %>
     </dl>
 <% end %>
 

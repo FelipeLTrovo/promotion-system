@@ -32,7 +32,15 @@ class PromotionsController < ApplicationController
         else
           render :edit
         end
-      end
+    end
+
+    def destroy
+        @promotion = Promotion.find(params[:id])
+        if @promotion.destroy
+            flash[:notice] = "Promoção deletada com sucesso"
+            redirect_to @promotion
+        end
+    end
 
     def generate_coupons
         @promotion = Promotion.find(params[:id])
