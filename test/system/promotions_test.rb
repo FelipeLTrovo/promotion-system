@@ -198,9 +198,11 @@ class PromotionsTest < ApplicationSystemTestCase
   end
 
   test 'delete promotion' do
-                      Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
+    coupon =    Coupon.create!(code: "#{promotion.code}-#{'%04d' % promotion.coupon_quantity}", promotion: promotion)
+    promotion.coupons << coupon
     visit promotions_path
     click_on 'Deletar promoção'
     assert_text 'Nenhuma promoção cadastrada'
