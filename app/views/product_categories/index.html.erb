@@ -1,0 +1,13 @@
+<% if @product_categories.empty? %>
+    <h3>Nenhuma categoria de produto cadastrada</h3>
+<% end%>
+
+<% @product_categories.each do |product_category| %>
+    <h3><%= link_to product_category.name, product_category %></h3>
+    <%= link_to 'Editar categoria de produto', edit_product_category_path(product_category.id) %>
+    <%= link_to 'Deletar categoria de produto', product_category_path(product_category.id), method: :delete %>
+<% end %>
+<div>
+<%= link_to 'Voltar', root_path %>
+<%= link_to 'Registrar uma categoria de produto', new_product_category_path %>
+</div>
