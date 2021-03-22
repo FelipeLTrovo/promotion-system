@@ -14,7 +14,7 @@ class ProductCategoryTest < ActiveSupport::TestCase
     product_category = ProductCategory.new(code: 'ANTIFRA')
 
     refute product_category.valid?
-    assert_includes product_category.errors[:code], 'deve ser único'
+    assert_includes product_category.errors[:code], 'já está em uso'
   end
 
   test 'name must be uniq' do
@@ -22,6 +22,6 @@ class ProductCategoryTest < ActiveSupport::TestCase
     product_category = ProductCategory.new(name: 'Produto AntiFraude')
 
     refute product_category.valid?
-    assert_includes product_category.errors[:name], 'deve ser único'
+    assert_includes product_category.errors[:name], 'já está em uso'
   end
 end

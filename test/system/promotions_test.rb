@@ -48,7 +48,7 @@ class PromotionsTest < ApplicationSystemTestCase
     visit root_path
     click_on 'Promoções'
 
-    assert_text 'Nenhuma promoção cadastrada'
+    assert_text 'Nenhuma Promoção cadastrada'
   end
 
   test 'view promotions and return to home page' do
@@ -79,14 +79,14 @@ class PromotionsTest < ApplicationSystemTestCase
   test 'create promotion' do
     visit root_path
     click_on 'Promoções'
-    click_on 'Registrar uma promoção'
+    click_on 'Registrar Promoção'
     fill_in 'Nome', with: 'Cyber Monday'
     fill_in 'Descrição', with: 'Promoção de Cyber Monday'
     fill_in 'Código', with: 'CYBER15'
     fill_in 'Desconto', with: '15'
     fill_in 'Quantidade de cupons', with: '90'
     fill_in 'Data de término', with: '22/12/2033'
-    click_on 'Criar promoção'
+    click_on 'Criar Promoção'
 
     assert_current_path promotion_path(Promotion.last)
     assert_text 'Cyber Monday'
@@ -101,8 +101,8 @@ class PromotionsTest < ApplicationSystemTestCase
   test 'create and attributes cannot be blank' do
     visit root_path
     click_on 'Promoções'
-    click_on 'Registrar uma promoção'
-    click_on 'Criar promoção'
+    click_on 'Registrar Promoção'
+    click_on 'Criar Promoção'
 
     assert_text 'não pode ficar em branco', count: 5
   end
@@ -114,12 +114,12 @@ class PromotionsTest < ApplicationSystemTestCase
 
     visit root_path
     click_on 'Promoções'
-    click_on 'Registrar uma promoção'
+    click_on 'Registrar Promoção'
     fill_in 'Código', with: 'NATAL10'
     fill_in 'Nome', with: 'Natal'
-    click_on 'Criar promoção'
+    click_on 'Criar Promoção'
 
-    assert_text 'deve ser único', count: 2
+    assert_text 'já está em uso', count: 2
   end
 
   test 'generate coupons for a promotion' do
@@ -128,7 +128,7 @@ class PromotionsTest < ApplicationSystemTestCase
                                   expiration_date: '22/12/2033')
 
     visit promotion_path(promotion)
-    click_on "Gerar cupons"
+    click_on "Gerar Cupons"
 
     assert_text "Cupons gerados com sucesso"
 
@@ -154,7 +154,7 @@ class PromotionsTest < ApplicationSystemTestCase
     fill_in 'Desconto', with: '15'
     fill_in 'Quantidade de cupons', with: '90'
     fill_in 'Data de término', with: '22/12/2033'
-    click_on 'Editar promoção'
+    click_on 'Atualizar Promoção'
 
     assert_current_path promotion_path(promotion)
     assert_text "Promoção editada com sucesso"
@@ -174,7 +174,7 @@ class PromotionsTest < ApplicationSystemTestCase
     fill_in 'Desconto', with: ''
     fill_in 'Quantidade de cupons', with: ''
     fill_in 'Data de término', with: ''
-    click_on 'Editar promoção'
+    click_on 'Atualizar Promoção'
 
     assert_current_path promotion_path(promotion)
     assert_no_text "Promoção editada com sucesso"
@@ -193,8 +193,8 @@ class PromotionsTest < ApplicationSystemTestCase
     visit edit_promotion_path(edit_promotion)
     fill_in 'Nome', with: 'Natal'
     fill_in 'Código', with: 'NATAL10'
-    click_on 'Editar promoção'
-    assert_text 'deve ser único', count: 2
+    click_on 'Atualizar Promoção'
+    assert_text 'já está em uso', count: 2
   end
 
   test 'delete promotion' do
@@ -204,8 +204,8 @@ class PromotionsTest < ApplicationSystemTestCase
     coupon =    Coupon.create!(code: "#{promotion.code}-#{'%04d' % promotion.coupon_quantity}", promotion: promotion)
     promotion.coupons << coupon
     visit promotions_path
-    click_on 'Deletar promoção'
-    assert_text 'Nenhuma promoção cadastrada'
+    click_on 'Deletar Promoção'
+    assert_text 'Nenhuma Promoção cadastrada'
   end
 
 end

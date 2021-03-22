@@ -27,7 +27,7 @@ class ProductCategoriesController < ApplicationController
     def update
         @product_category = ProductCategory.find(params[:id])
         if @product_category.update(product_category_params)
-            flash[:notice] = "Categoria de produtos editada com sucesso"
+            flash[:notice] = "#{t('activerecord.models.product_category.one')} editada com sucesso"
             redirect_to @product_category
         else
           render :edit
@@ -37,7 +37,7 @@ class ProductCategoriesController < ApplicationController
     def destroy
         @product_category = ProductCategory.find(params[:id])
         if @product_category.destroy
-            flash[:notice] = "Categoria de produtos deletada com sucesso"
+            flash[:notice] = "#{t('activerecord.models.product_category.one')} deletada com sucesso"
             redirect_to @product_category
         end
     end

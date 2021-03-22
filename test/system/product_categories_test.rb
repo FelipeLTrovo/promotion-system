@@ -28,7 +28,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
         visit root_path
         click_on 'Categorias de Produtos'
     
-        assert_text 'Nenhuma categoria de produto cadastrada'
+        assert_text 'Nenhuma Categoria de Produtos cadastrada'
     end
 
     test 'view product categories and return to home page' do
@@ -53,10 +53,10 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     test 'create product category' do
         visit root_path
         click_on 'Categorias de Produtos'
-        click_on 'Registrar uma categoria de produto'
+        click_on 'Registrar Categoria de Produto'
         fill_in 'Nome', with: 'Produto AntiFraude'
         fill_in 'Código', with: 'ANTIFRA'
-        click_on 'Criar categoria de produto'
+        click_on 'Criar Categoria de Produto'
         assert_current_path product_category_path(ProductCategory.last)
         assert_text 'Produto AntiFraude'
         assert_text 'ANTIFRA'
@@ -65,8 +65,8 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     test 'create product category and attributes cannot be blank' do
         visit root_path
         click_on 'Categorias de Produtos'
-        click_on 'Registrar uma categoria de produto'
-        click_on 'Criar categoria de produto'
+        click_on 'Registrar Categoria de Produto'
+        click_on 'Criar Categoria de Produto'
         assert_text 'não pode ficar em branco', count: 2
     end
 
@@ -74,11 +74,11 @@ class ProductCategoriesTest < ApplicationSystemTestCase
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
         visit root_path
         click_on 'Categorias de Produtos'
-        click_on 'Registrar uma categoria de produto'
+        click_on 'Registrar Categoria de Produto'
         fill_in 'Nome', with: 'Produto AntiFraude'
         fill_in 'Código', with: 'ANTIFRA'
-        click_on 'Criar categoria de produto'
-        assert_text 'deve ser único', count: 2
+        click_on 'Criar Categoria de Produto'
+        assert_text 'já está em uso', count: 2
     end
 
     test 'update product category' do
@@ -86,12 +86,12 @@ class ProductCategoriesTest < ApplicationSystemTestCase
         visit edit_product_category_path(product_category)
         fill_in 'Nome', with: 'Produto Premium'
         fill_in 'Código', with: 'PREMIUM'
-        click_on 'Editar categoria de produto'
+        click_on 'Atualizar Categoria de Produto'
         assert_no_text 'Produto AntiFraude'
         assert_no_text 'ANTIFRA'
         assert_text 'Produto Premium'
         assert_text 'PREMIUM'
-        assert_text 'Categoria de produtos editada com sucesso'
+        assert_text 'Categoria de Produtos editada com sucesso'
     end
 
     test 'update product category and attributes cannot be blank' do
@@ -99,7 +99,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
         visit edit_product_category_path(product_category)
         fill_in 'Nome', with: ''
         fill_in 'Código', with: ''
-        click_on 'Editar categoria de produto'
+        click_on 'Atualizar Categoria de Produtos'
         assert_text 'não pode ficar em branco', count: 2
     end
 
@@ -109,16 +109,16 @@ class ProductCategoriesTest < ApplicationSystemTestCase
         visit edit_product_category_path(edit_product_category)
         fill_in 'Nome', with: 'Produto Premium'
         fill_in 'Código', with: 'PREMIUM'
-        click_on 'Editar categoria de produto'
-        assert_text 'deve ser único', count: 2
+        click_on 'Atualizar Categoria de Produtos'
+        assert_text 'já está em uso', count: 2
     end
 
     test 'delete product category' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
         visit root_path
         click_on 'Categorias de Produtos'
-        click_on 'Deletar categoria de produto'
-        assert_text 'Nenhuma categoria de produto cadastrada'
+        click_on 'Deletar Categoria de Produto'
+        assert_text 'Nenhuma Categoria de Produtos cadastrada'
     end
     
 end
