@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'home#index'
 
-  resources :promotions, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+  resources :promotions, only: %i[index show new create edit update destroy] do
     post 'generate_coupons', on: :member
   end
 
-  resources :product_categories, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :product_categories, only: %i[index show new create edit update destroy]
 end
