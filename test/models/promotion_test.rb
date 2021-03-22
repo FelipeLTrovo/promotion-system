@@ -53,4 +53,19 @@ class PromotionTest < ActiveSupport::TestCase
       promotion.generate_coupons!
     end
   end
+
+  test 'coupons? has coupons' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                expiration_date: '22/12/2033')
+                Coupon.create!(code: 'BLABLABLA', promotion: promotion)
+    assert_equal promotion.coupons?, true
+  end
+
+  test 'coupons? does not have coupons' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                expiration_date: '22/12/2033')
+    assert_not_equal promotion.coupons?, true
+  end
 end
