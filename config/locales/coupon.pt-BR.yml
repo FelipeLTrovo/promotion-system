@@ -1,7 +1,17 @@
 ---
 pt-BR:
+  coupons:
+    disable:
+      success: Cupom %{code} desabilitado com sucesso
   activerecord:
     models:
       coupon: 
         one: Cupom
         other: Cupons
+    attributes:
+      coupon:
+        code: Código
+        name: Nome
+      coupon/status:
+        active: ativo
+        disabled: desabilitado
