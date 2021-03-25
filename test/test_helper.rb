@@ -11,4 +11,7 @@ class ActiveSupport::TestCase
   #fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def login_user(user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd'))
+    login_as(user, scope: 'user')
+  end
 end

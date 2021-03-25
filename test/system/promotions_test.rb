@@ -12,8 +12,7 @@ class PromotionsTest < ApplicationSystemTestCase
                       code: 'CYBER15', discount_rate: 15,
                       expiration_date: '22/12/2033')
     
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
 
     visit root_path
     click_on 'Promoções'
@@ -35,8 +34,7 @@ class PromotionsTest < ApplicationSystemTestCase
                       code: 'CYBER15', discount_rate: 15,
                       expiration_date: '22/12/2033')
 
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
 
     visit root_path
     click_on 'Promoções'
@@ -51,8 +49,7 @@ class PromotionsTest < ApplicationSystemTestCase
   end
 
   test 'no promotion are available' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
     visit root_path
     click_on 'Promoções'
 
@@ -64,8 +61,7 @@ class PromotionsTest < ApplicationSystemTestCase
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
 
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
     visit root_path
     click_on 'Promoções'
     click_on 'Voltar'
@@ -78,8 +74,7 @@ class PromotionsTest < ApplicationSystemTestCase
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
 
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
     visit root_path
     click_on 'Promoções'
     click_on 'Natal'
@@ -89,8 +84,7 @@ class PromotionsTest < ApplicationSystemTestCase
   end
 
   test 'create promotion' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
     visit root_path
     click_on 'Promoções'
     click_on 'Registrar Promoção'
@@ -113,8 +107,7 @@ class PromotionsTest < ApplicationSystemTestCase
   end
 
   test 'create and attributes cannot be blank' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+    login_user
     visit root_path
     click_on 'Promoções'
     click_on 'Registrar Promoção'
@@ -127,9 +120,8 @@ class PromotionsTest < ApplicationSystemTestCase
     Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033')
-                      
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    login_as(user, scope: 'user')
+
+    login_user
 
     visit root_path
     click_on 'Promoções'
@@ -145,6 +137,8 @@ class PromotionsTest < ApplicationSystemTestCase
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033')
+
+    login_user
 
     visit promotion_path(promotion)
     click_on "Gerar Cupons"
@@ -167,6 +161,7 @@ class PromotionsTest < ApplicationSystemTestCase
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033')
 
+    login_user
     visit edit_promotion_path(promotion)
     fill_in 'Nome', with: 'Cyber Monday'
     fill_in 'Descrição', with: 'Promoção de Cyber Monday'
@@ -223,6 +218,7 @@ class PromotionsTest < ApplicationSystemTestCase
                       expiration_date: '22/12/2033')
     coupon =    Coupon.create!(code: "#{promotion.code}-#{'%04d' % promotion.coupon_quantity}", promotion: promotion)
     promotion.coupons << coupon
+    login_user
     visit promotions_path
     click_on 'Deletar Promoção'
     assert_text 'Nenhuma Promoção cadastrada'
@@ -236,6 +232,21 @@ class PromotionsTest < ApplicationSystemTestCase
 
   test 'do not view promotions using route without login' do 
     visit promotions_path
+
+    assert_current_path new_user_session_path
+  end
+
+  test 'do view promotion details without login' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                      expiration_date: '22/12/2033')
+    visit promotion_path(promotion)
+
+    assert_current_path new_user_session_path
+  end
+
+  test 'cannot create promotion without login' do
+    visit new_promotion_path
 
     assert_current_path new_user_session_path
   end
