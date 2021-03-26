@@ -181,7 +181,7 @@ class PromotionsTest < ApplicationSystemTestCase
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033')
-
+    login_user
     visit edit_promotion_path(promotion)
     fill_in 'Nome', with: ''
     fill_in 'Descrição', with: ''
@@ -204,6 +204,8 @@ class PromotionsTest < ApplicationSystemTestCase
                       description: 'Promoção de Cyber Monday',
                       code: 'CYBER15', discount_rate: 15,
                       expiration_date: '22/12/2033')
+
+    login_user
     
     visit edit_promotion_path(edit_promotion)
     fill_in 'Nome', with: 'Natal'
