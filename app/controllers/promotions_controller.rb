@@ -28,8 +28,7 @@ class PromotionsController < ApplicationController
 
     def update
         if @promotion.update(promotion_params)
-            flash[:notice] = "#{t('activerecord.models.promotion.one')} editada com sucesso"
-            redirect_to @promotion
+            redirect_to @promotion, notice: t('.success')
         else
           render :edit
         end
@@ -37,14 +36,13 @@ class PromotionsController < ApplicationController
 
     def destroy
         if @promotion.destroy
-            flash[:notice] = "#{t('activerecord.models.promotion.one')} deletada com sucesso"
-            redirect_to @promotion
+            redirect_to @promotion, notice: t('.success')
         end
     end
 
     def generate_coupons
         @promotion.generate_coupons!
-        redirect_to @promotion, notice: "#{t('activerecord.models.coupon.other')} gerados com sucesso"
+        redirect_to @promotion, notice: t('.success')
     end
     
     private

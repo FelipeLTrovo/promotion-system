@@ -1,5 +1,12 @@
 ---
 pt-BR:
+  promotions:
+    update:
+      success: Promoção editada com sucesso
+    destroy:
+      success: Promoção deletada com sucesso
+    generate_coupons:
+      success: Cupons gerados com sucesso
   activerecord:
     models:
       promotion: 
