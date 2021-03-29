@@ -1,10 +1,12 @@
 class ProductCategoriesController < ApplicationController
+    before_action :authenticate_user!
+    before_action :set_product_category, only: %i[show edit update destroy]
+
     def index
         @product_categories = ProductCategory.all
     end
 
     def show
-        @product_category = ProductCategory.find(params[:id])
     end
 
     def new
@@ -21,11 +23,9 @@ class ProductCategoriesController < ApplicationController
     end
 
     def edit
-        @product_category = ProductCategory.find(params[:id])
     end
 
     def update
-        @product_category = ProductCategory.find(params[:id])
         if @product_category.update(product_category_params)
             flash[:notice] = "#{t('activerecord.models.product_category.one')} editada com sucesso"
             redirect_to @product_category
@@ -35,7 +35,6 @@ class ProductCategoriesController < ApplicationController
     end
 
     def destroy
-        @product_category = ProductCategory.find(params[:id])
         if @product_category.destroy
             flash[:notice] = "#{t('activerecord.models.product_category.one')} deletada com sucesso"
             redirect_to @product_category
@@ -46,5 +45,9 @@ class ProductCategoriesController < ApplicationController
 
         def product_category_params
             params.require(:product_category).permit(:name, :code)
+        end
+
+        def set_product_category
+            @product_category = ProductCategory.find(params[:id])
         end
 end

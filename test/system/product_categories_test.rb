@@ -4,7 +4,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     test 'view product categories' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
         ProductCategory.create!(name: 'Produto Premium', code: 'PREMIUM')
-
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
 
@@ -15,7 +15,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     test 'view product category details' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
         ProductCategory.create!(name: 'Produto Premium', code: 'PREMIUM')
-
+        login_user
         visit product_categories_path
         click_on 'Produto AntiFraude'
 
@@ -25,6 +25,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     end
 
     test 'no product categories are available' do
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
     
@@ -33,6 +34,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'view product categories and return to home page' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
         click_on 'Voltar'
@@ -42,6 +44,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'view details and return to all product categories page' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
         click_on 'Produto AntiFraude'
@@ -51,6 +54,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     end
 
     test 'create product category' do
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
         click_on 'Registrar Categoria de Produto'
@@ -63,6 +67,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     end
 
     test 'create product category and attributes cannot be blank' do
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
         click_on 'Registrar Categoria de Produto'
@@ -72,6 +77,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'create product category and code/name must be unique' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
         click_on 'Registrar Categoria de Produto'
@@ -83,6 +89,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'update product category' do
         product_category = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        login_user
         visit edit_product_category_path(product_category)
         fill_in 'Nome', with: 'Produto Premium'
         fill_in 'Código', with: 'PREMIUM'
@@ -96,6 +103,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'update product category and attributes cannot be blank' do
         product_category = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        login_user
         visit edit_product_category_path(product_category)
         fill_in 'Nome', with: ''
         fill_in 'Código', with: ''
@@ -105,6 +113,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'update product category and attributes must be unique' do
         ProductCategory.create!(name: 'Produto Premium', code: 'PREMIUM')
+        login_user
         edit_product_category = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
         visit edit_product_category_path(edit_product_category)
         fill_in 'Nome', with: 'Produto Premium'
@@ -115,6 +124,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
 
     test 'delete product category' do
         ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        login_user
         visit root_path
         click_on 'Categorias de Produtos'
         click_on 'Deletar Categoria de Produto'
