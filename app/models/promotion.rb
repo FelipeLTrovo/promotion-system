@@ -15,8 +15,11 @@ class Promotion < ApplicationRecord
         end
     end
 
-    #TODO create tests to this method
     def coupons?
         coupons.any?
+    end
+
+    def self.search(query)
+        where('name LIKE ?', "%#{query}%").limit(5)
     end
 end

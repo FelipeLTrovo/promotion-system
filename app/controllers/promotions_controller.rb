@@ -44,6 +44,11 @@ class PromotionsController < ApplicationController
         @promotion.generate_coupons!
         redirect_to @promotion, notice: t('.success')
     end
+
+    def search
+        @promotions = Promotion.search(params[:q])
+        render :index
+    end
     
     private
         def set_promotion
