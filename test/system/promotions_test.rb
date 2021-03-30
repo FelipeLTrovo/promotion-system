@@ -247,10 +247,59 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_text christmassy.name
     assert_no_text cyber_monday.name
   end
-
+  
   # TODO não encontra nada
+  test 'search promotions by term and finds nothing' do
+    christmas = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                  code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+    christmassy = Promotion.create!(name: 'Natalina', description: 'Promoção de Natal',
+                                  code: 'NATALINA10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+    cyber_monday = Promotion.create!(name: 'Cyber Monday', coupon_quantity: 90,
+                                     description: 'Promoção de Cyber Monday',
+                                     code: 'CYBER15', discount_rate: 15,
+                                     expiration_date: '22/12/2033')
+    login_user
+    visit root_path
+    click_on 'Promoções'
+    fill_in 'Busca', with: 'carnaval'
+    click_on 'Buscar'
+
+    assert_no_text christmas.name
+    assert_no_text christmassy.name
+    assert_no_text cyber_monday.name
+    assert_text 'Nenhuma Promoção cadastrada'
+  end
+
   # TODO acessar pagina de busca sem estar logado
+  test 'do not search promotions by term using route without login' do
+    visit search_promotions_path
+    assert_no_link 'Buscar'
+    assert_current_path new_user_session_path
+  end
+
   # TODO visit search_promotions(q: 'natal')
+  test 'do not search promotions by params using route without login' do
+    christmas = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                                  code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+    christmassy = Promotion.create!(name: 'Natalina', description: 'Promoção de Natal',
+                                  code: 'NATALINA10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033')
+    cyber_monday = Promotion.create!(name: 'Cyber Monday', coupon_quantity: 90,
+                                     description: 'Promoção de Cyber Monday',
+                                     code: 'CYBER15', discount_rate: 15,
+                                     expiration_date: '22/12/2033')
+
+    visit search_promotions_path(q: 'natal')
+
+    assert_no_text christmas.name
+    assert_no_text christmassy.name
+    assert_no_text cyber_monday.name
+
+    assert_current_path new_user_session_path
+  end
 
   test 'do not view promotion link without login' do
     visit root_path
