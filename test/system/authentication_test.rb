@@ -38,7 +38,7 @@ class AuthenticationTest < ApplicationSystemTestCase
     #TODO Teste de falhar ao logar
     #TODO Teste de recuperar senha
     test 'user reset password' do
-        user = User.create!(name: 'Jane Doe', email: 'jane.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'jane.doe@iugu.com.br', password: 'password')
         token = user.send_reset_password_instructions
         visit edit_user_password_path(reset_password_token: token)
         

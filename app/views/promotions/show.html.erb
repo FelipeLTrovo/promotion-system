@@ -13,14 +13,14 @@
 </dl>
 
 <% if @promotion.approved? %>
-    <p>Aprovada por: <%= @promotion.promotion_approval.user.email %></p>
-<% else %>
+    <p>Aprovada por: <%= @promotion.approver.email %></p>
+    <% if @promotion.coupons.empty? %>
+        <%= link_to "Gerar #{t('activerecord.models.coupon.other')}", generate_coupons_promotion_path(@promotion), method: :post %>
+    <% end %>
+<% elsif @promotion.can_approve?(current_user) %>
     <%= link_to 'Aprovar', approve_promotion_path(@promotion), data: {confirm: "Tem certeza? Essa operação não poderá ser desfeita."}, method: :post %>
 <% end %>
 
-<% if @promotion.coupons.empty? %>
-    <%= link_to "Gerar #{t('activerecord.models.coupon.other')}", generate_coupons_promotion_path(@promotion), method: :post %>
-<% end %>
 
 <%= link_to 'Voltar', promotions_path %>
 

@@ -141,7 +141,7 @@ class PromotionsTest < ApplicationSystemTestCase
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033', user: user)
 
-
+    promotion.create_promotion_approval(user: User.create!(email: "campuscode@iugu.com.br", password: "123456"))
     visit promotion_path(promotion)
     click_on "Gerar Cupons"
 
@@ -316,6 +316,19 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_text 'Promoção aprovada com sucesso'
     assert_text "Aprovada por: #{approver.email}"
     assert_link 'Gerar Cupons'
+  end
+
+  test 'user cannot approve his own promotion' do
+    user = login_user
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                      expiration_date: '22/12/2033', user: user)
+    visit promotion_path(promotion)
+    
+
+    
+    refute_link 'Aprovar'
+    refute_link 'Gerar Cupons'
   end
 
   test 'do not view promotion link without login' do

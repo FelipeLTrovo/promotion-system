@@ -4,4 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :promotions
+  has_many :promotion_approvals
+  has_many :approved_promotions, through: :promotion_approvals, source: :promotions
 end

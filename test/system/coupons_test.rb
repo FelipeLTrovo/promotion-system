@@ -2,11 +2,11 @@ require 'application_system_test_case'
 
 class CouponsTest < ApplicationSystemTestCase
     test 'disable a coupon' do
+        user = login_user
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 3,
-                expiration_date: '22/12/2033')
+                expiration_date: '22/12/2033', user: user)
         coupon = Coupon.create!(code: 'BLABLABLA', promotion: promotion)
-        login_user
         visit promotion_path(promotion)
         click_on 'Desabilitar'
 
@@ -16,11 +16,11 @@ class CouponsTest < ApplicationSystemTestCase
     end
 
     test 'enable a coupon' do
+        user = login_user
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 3,
-                expiration_date: '22/12/2033')
+                expiration_date: '22/12/2033', user: user)
         coupon = Coupon.create!(code: 'BLABLABLA', status: :disabled, promotion: promotion)
-        login_user
         visit promotion_path(promotion)
         click_on 'Habilitar'
 
