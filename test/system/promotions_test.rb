@@ -224,7 +224,7 @@ class PromotionsTest < ApplicationSystemTestCase
     coupon =    Coupon.create!(code: "#{promotion.code}-#{'%04d' % promotion.coupon_quantity}", promotion: promotion)
     promotion.coupons << coupon
     visit promotions_path
-    click_on 'Deletar Promoção'
+    accept_confirm {click_on 'Deletar Promoção'}
     assert_text 'Nenhuma Promoção cadastrada'
   end
 

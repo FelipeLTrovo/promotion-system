@@ -11,7 +11,7 @@
         <dd><%= number_to_percentage promotion.discount_rate, precision: 2 %></dd>
     </dl>
         <%= link_to "Editar #{t("activerecord.models.promotion.one")}", edit_promotion_path(promotion.id) %>
-        <%= link_to "Deletar #{t("activerecord.models.promotion.one")}", promotion_path(promotion.id), method: :delete %>
+        <%= link_to "Deletar #{t("activerecord.models.promotion.one")}", promotion_path(promotion.id), data: {confirm: "Tem certeza? Essa operação não poderá ser desfeita."}, method: :delete %>
 <% end %>
 
 <%= link_to 'Voltar', root_path %>
