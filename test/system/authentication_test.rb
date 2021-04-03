@@ -203,4 +203,16 @@ class AuthenticationTest < ApplicationSystemTestCase
     end
     #TODO I18n do user
     #TODO Incluir name no user
+
+    test 'user cancel account' do
+        user = User.create!(email: 'jane.doe@iugu.com.br', name: 'Jane Doe', password: 'password')
+        login_user(user)
+        visit root_path
+
+        click_on 'jane.doe@iugu.com.br'
+        accept_confirm {click_on 'Cancel my account'}
+        assert_text 'Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve.'
+        assert_no_text 'Sua conta foi atualizada com sucesso.'
+        assert_current_path root_path
+    end
 end
