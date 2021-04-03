@@ -19,7 +19,7 @@ class AuthenticationTest < ApplicationSystemTestCase
     end
     
     test 'user sign in' do 
-        user = User.create!(email: 'john.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'john.doe@iugu.com.br', name:"John Doe", password: 'password')
         
         visit root_path
         click_on 'Entrar'
@@ -117,7 +117,7 @@ class AuthenticationTest < ApplicationSystemTestCase
 
     #TODO Teste de recuperar senha
     test 'user reset password' do
-        user = User.create!(email: 'jane.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'jane.doe@iugu.com.br', name: 'Jane Doe', password: 'password')
         token = user.send_reset_password_instructions
         visit edit_user_password_path(reset_password_token: token)
         
@@ -129,12 +129,13 @@ class AuthenticationTest < ApplicationSystemTestCase
 
     #TODO Teste de editar user
     test 'user edit attributes' do
-        user = User.create!(email: 'jane.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'jane.doe@iugu.com.br', name: 'Jane Doe', password: 'password')
         login_user(user)
         visit root_path
 
         click_on 'jane.doe@iugu.com.br'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
+        fill_in 'Name', with: 'Campus Code'
         fill_in 'Senha', with: 'newpassword'
         fill_in 'Confirmação da senha', with: 'newpassword'
         fill_in 'Current password', with: 'password'
@@ -148,7 +149,7 @@ class AuthenticationTest < ApplicationSystemTestCase
     end
 
     test 'user edit attributes with blank parameters' do
-        user = User.create!(email: 'jane.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'jane.doe@iugu.com.br', name:"Jane Doe", password: 'password')
         login_user(user)
         visit root_path
 
@@ -162,12 +163,13 @@ class AuthenticationTest < ApplicationSystemTestCase
     end
 
     test 'user edit attributes with short password' do
-        user = User.create!(email: 'jane.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'jane.doe@iugu.com.br', name: 'Jane Doe', password: 'password')
         login_user(user)
         visit root_path
 
         click_on 'jane.doe@iugu.com.br'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
+        fill_in 'Name', with: 'Campus Code'
         fill_in 'Senha', with: '123'
         fill_in 'Confirmação da senha', with: '123'
         fill_in 'Current password', with: 'password'
@@ -181,12 +183,13 @@ class AuthenticationTest < ApplicationSystemTestCase
     end
 
     test 'user edit attributes with password and password confirmation do not match' do
-        user = User.create!(email: 'jane.doe@iugu.com.br', password: 'password')
+        user = User.create!(email: 'jane.doe@iugu.com.br', name: 'Jane Doe', password: 'password')
         login_user(user)
         visit root_path
 
         click_on 'jane.doe@iugu.com.br'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
+        fill_in 'Name', with: 'Campus Code'
         fill_in 'Senha', with: '123456'
         fill_in 'Confirmação da senha', with: 'abcdef'
         fill_in 'Current password', with: 'password'

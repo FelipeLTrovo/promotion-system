@@ -141,7 +141,7 @@ class PromotionsTest < ApplicationSystemTestCase
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033', user: user)
 
-    promotion.create_promotion_approval(user: User.create!(email: "campuscode@iugu.com.br", password: "123456"))
+    promotion.create_promotion_approval(user: User.create!(email: "campuscode@iugu.com.br", name: "Campus Code", password: "123456"))
     visit promotion_path(promotion)
     click_on "Gerar Cupons"
 
@@ -283,7 +283,7 @@ class PromotionsTest < ApplicationSystemTestCase
 
   # TODO visit search_promotions(q: 'natal')
   test 'do not search promotions by params using route without login' do
-    user = User.create!(email: "johndoe@hotmail.com", password: "123456")
+    user = User.create!(email: "johndoe@hotmail.com", name: "John Doe", password: "123456")
     christmas = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033', user: user)
@@ -305,7 +305,7 @@ class PromotionsTest < ApplicationSystemTestCase
   end
 
   test 'user approve promotion' do
-    user = User.create!(email: "janedoe@iugu.com.br", password: "123456")
+    user = User.create!(email: "johndoe@iugu.com.br", name: "John Doe", password: "123456")
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033', user: user)
@@ -344,7 +344,7 @@ class PromotionsTest < ApplicationSystemTestCase
   end
 
   test 'do view promotion details without login' do
-    user = User.create!(email: "johndoe@hotmail.com", password: "123456")
+    user = User.create!(email: "johndoe@hotmail.com", name: "John Doe", password: "123456")
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                       expiration_date: '22/12/2033', user: user)

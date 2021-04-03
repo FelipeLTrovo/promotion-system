@@ -17,7 +17,7 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     end
 
     test 'cannot create a promotion without login' do
-        user = User.create!(email: "janedoe@iugu.com.br", password: "123456")
+        user = User.create!(email: "campuscode@iugu.com.br", name: "Campus Code", password: "123456")
         post '/promotions', params: {
            promotion: {name: 'Natal', description: 'Promoção de Natal', 
                        code: 'NATAL10', discount_rate: 15, 
@@ -27,7 +27,7 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     end
 
     test 'cannot generate coupons without login' do
-        user = User.create!(email: "janedoe@iugu.com.br", password: "123456")
+        user = User.create!(email: "campuscode@iugu.com.br", name: "Campus Code", password: "123456")
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 3,
                 expiration_date: '22/12/2033', user: user)
@@ -37,7 +37,7 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     end
 
     test 'cannot update a promotion without login' do
-        user = User.create!(email: "janedoe@iugu.com.br", password: "123456")
+        user = User.create!(email: "campuscode@iugu.com.br", name: "Campus Code", password: "123456")
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 3,
                 expiration_date: '22/12/2033', user: user)
@@ -50,7 +50,7 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     end
 
     test 'cannot delete a promotion without login' do
-        user = User.create!(email: "janedoe@iugu.com.br", password: "123456")
+        user = User.create!(email: "campuscode@iugu.com.br", name: "Campus Code", password: "123456")
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 3,
                 expiration_date: '22/12/2033', user: user)
@@ -63,7 +63,7 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     #TESTE DE LOGIN DA APROVAÇÃO
 
     test 'cannot approve if owner' do
-        user = User.create!(email: "janedoe@iugu.com.br", password: "123456")
+        user = User.create!(email: "campuscode@iugu.com.br", name: "Campus Code", password: "123456")
         promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                 code: 'NATAL10', discount_rate: 10, coupon_quantity: 3,
                 expiration_date: '22/12/2033', user: user)
