@@ -19,14 +19,31 @@ pt-BR:
     mailer:
       confirmation_instructions:
         subject: "Instruções de confirmação"
+        message: "Você poderá confirmar sua conta através do link abaixo: "
+        button: "Confirmar minha conta"
+        welcome: "Bem vindo"
       reset_password_instructions:
         subject: "Instruções de troca de senha"
+        welcome: "Olá "
+        message: "Alguém solicitou uma alteração de senha. Para realizar a alteração clique no link abaixo: "
+        message_not_requested: "Se você não solicitou a alteração de senha, por favor ignore este email."
+        message_wont_change: "Sua senha não será alterada até você clicar no link acima e criar uma nova."
+        button: "Alterar minha senha"
       unlock_instructions:
         subject: "Instruções de desbloqueio"
+        welcome: "Olá "
+        button: "Desbloquear minha conta"
+        message_locked: "Sua conta foi bloqueada após várias tentativas de login mal sucedidas."
+        message: "Clique no link abaixo para desbloquear sua conta."
       email_changed:
         subject: "E-mail alterado"
+        message: "Estamos entrando em contato para notificar que seu email está sendo alterado para: "
+        message_done: "Estamos entrando em contato para notificar que seu email foi alterado para: "
+        welcome: "Olá "
       password_change:
         subject: "Senha alterada"
+        message_done: "Estamos entrando em contato para notificar que sua senha foi alterada."
+        welcome: "Olá "
     omniauth_callbacks:
       failure: "Não foi possível autenticá-lo como %{kind} porque %{reason}."
       success: "Autenticado com sucesso com uma conta de %{kind}."
@@ -36,6 +53,10 @@ pt-BR:
       send_paranoid_instructions: "Se o seu endereço de e-mail estiver cadastrado, você receberá um link de recuperação da senha via e-mail."
       updated: "Sua senha foi alterada com sucesso. Você está logado."
       updated_not_active: "Sua senha foi alterada com sucesso."
+      send_instructions_button: "Enviar instruções para a troca de senha"
+      resend_instructions_button: "Reenviar instruções para a troca de senha"
+      forgot_password: "Esqueceu a senha?"
+      update_password: "Alterar senha"
     registrations:
       destroyed: "Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve."
       signed_up: "Boas vindas! Cadastrou e entrou com sucesso."
@@ -49,10 +70,21 @@ pt-BR:
       signed_in: "Login efetuado com sucesso!"
       signed_out: "Saiu com sucesso."
       already_signed_out: "Saiu com sucesso."
+      remember_me: "Lembre-se de mim"
     unlocks:
       send_instructions: "Dentro de minutos, você receberá um email com instruções para o desbloqueio da sua conta."
       send_paranoid_instructions: "Se sua conta existir, você receberá um e-mail com instruções para desbloqueá-la em alguns minutos."
       unlocked: "Sua conta foi desbloqueada com sucesso. Efetue login para continuar."
+      resend_instructions: "Reenviar instruções para desbloqueio"
+    shared:
+      links:
+        log_in: "Entrar"
+        sign_up: "Cadastrar"
+        forgot_password: "Esqueceu a senha?"
+        did_not_receive_confirmation_instructions: "Não recebeu instruções de confirmação?"
+        did_not_receive_unlock_instructions: "Não recebeu instruções de desbloqueio?"
+        sign_in_with: "Entre com "
+      
 
   errors:
     messages:

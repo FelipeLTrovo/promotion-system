@@ -1,5 +1,19 @@
 ---
 pt-BR:
+  users:
+    password_characters_minimum: Caracteres mínimos
+    new:
+      sign_up: Cadastre-se
+      sign_in: Log in
+      submit_button: Cadastrar
+    edit:
+      edit_user: Editar Usuário
+      current_password: Senha atual
+      current_password_message: Precisamos de sua senha atual para efetuar as mudanças
+      password_not_change_message: Deixe em branco se não desejar mudar sua senha atual
+      cancel_my_account: Cancelar minha conta
+      cancel_my_account_message: Insatisfeito com o sistema?
+      submit_button: Editar
   activerecord:
     models:
       user: 
@@ -9,3 +23,5 @@ pt-BR:
       user:
         password: Senha
         password_confirmation: Confirmação da senha
+        name: Nome
+        current_password: Senha atual
