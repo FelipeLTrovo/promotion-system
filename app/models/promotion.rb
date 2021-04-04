@@ -7,6 +7,7 @@ class Promotion < ApplicationRecord
     validates :name, :code, :discount_rate, :coupon_quantity, 
               :expiration_date, presence: true
     validates :name, :code, uniqueness: true
+    SEARCHABLE_FIELDS = %w[name code description].freeze
 
     def generate_coupons!
         return if coupons?
@@ -23,7 +24,12 @@ class Promotion < ApplicationRecord
     end
 
     def self.search(query)
-        where('name LIKE ?', "%#{query}%").limit(5)
+        where(
+            SEARCHABLE_FIELDS
+                .map { |field| "#{field} LIKE :query" }
+                .join(' OR '), 
+             query: "%#{query}%")
+        .limit(5)
     end
 
     def approved?
