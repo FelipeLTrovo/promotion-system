@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_many :promotions
   has_many :promotion_approvals
   has_many :approved_promotions, through: :promotion_approvals, source: :promotions
+  validates :name, presence: true
 end
