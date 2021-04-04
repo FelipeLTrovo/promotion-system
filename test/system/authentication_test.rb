@@ -5,8 +5,9 @@ class AuthenticationTest < ApplicationSystemTestCase
         visit root_path
         click_on 'Cadastrar'
         fill_in 'Email', with: 'john.doe@iugu.com.br'
+        fill_in 'Nome', with: 'John Doe'
         fill_in 'Senha', with: 'password'
-        fill_in 'Confirmação de senha', with: 'password'
+        fill_in 'Confirmação da senha', with: 'password'
         within 'form' do
             click_on 'Cadastrar'
         end
@@ -38,14 +39,16 @@ class AuthenticationTest < ApplicationSystemTestCase
         visit root_path
         click_on 'Cadastrar'
         fill_in 'Email', with: ''
+        fill_in 'Nome', with: ''
         fill_in 'Senha', with: ''
-        fill_in 'Confirmação de senha', with: ''
+        fill_in 'Confirmação da senha', with: ''
         within 'form' do
             click_on 'Cadastrar'
         end
         
         assert_no_text 'Boas vindas! Cadastrou e entrou com sucesso.'
         assert_text 'Email não pode ficar em branco'
+        assert_text 'Nome não pode ficar em branco'
         assert_text 'Senha não pode ficar em branco'
         assert_no_link 'Sair'
         assert_link 'Cadastrar'
@@ -72,8 +75,9 @@ class AuthenticationTest < ApplicationSystemTestCase
         visit root_path
         click_on 'Cadastrar'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
+        fill_in 'Nome', with: 'Campus Code'
         fill_in 'Senha', with: '123'
-        fill_in 'Confirmação de senha', with: '123'
+        fill_in 'Confirmação da senha', with: '123'
         within 'form' do
             click_on 'Cadastrar'
         end
@@ -89,8 +93,9 @@ class AuthenticationTest < ApplicationSystemTestCase
         visit root_path
         click_on 'Cadastrar'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
+        fill_in 'Nome', with: 'Campus Code'
         fill_in 'Senha', with: '123456'
-        fill_in 'Confirmação de senha', with: 'abcdef'
+        fill_in 'Confirmação da senha', with: 'abcdef'
         within 'form' do
             click_on 'Cadastrar'
         end
@@ -123,7 +128,7 @@ class AuthenticationTest < ApplicationSystemTestCase
         
         fill_in 'Nova senha', with: 'newpassword'
         fill_in 'Confirme sua nova senha', with: 'newpassword'
-        click_on 'Alterar minha senha'
+        click_on 'Alterar senha'
         assert_text 'Sua senha foi alterada com sucesso. Você está logado.'
         end 
 
@@ -135,11 +140,11 @@ class AuthenticationTest < ApplicationSystemTestCase
 
         click_on 'jane.doe@iugu.com.br'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
-        fill_in 'Name', with: 'Campus Code'
+        fill_in 'Nome', with: 'Campus Code'
         fill_in 'Senha', with: 'newpassword'
         fill_in 'Confirmação da senha', with: 'newpassword'
-        fill_in 'Current password', with: 'password'
-        click_on 'Update'
+        fill_in 'Senha atual', with: 'password'
+        click_on 'Editar'
 
         assert_text 'Sua conta foi atualizada com sucesso.'
         assert_link 'campuscode@iugu.com.br'
@@ -154,10 +159,10 @@ class AuthenticationTest < ApplicationSystemTestCase
         visit root_path
 
         click_on 'jane.doe@iugu.com.br'
-        click_on 'Update'
+        click_on 'Editar'
 
         assert_no_text 'Sua conta foi atualizada com sucesso.'
-        assert_text 'Current password não pode ficar em branco'
+        assert_text 'Senha atual não pode ficar em branco'
 
         assert_current_path user_registration_path	
     end
@@ -169,11 +174,11 @@ class AuthenticationTest < ApplicationSystemTestCase
 
         click_on 'jane.doe@iugu.com.br'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
-        fill_in 'Name', with: 'Campus Code'
+        fill_in 'Nome', with: 'Campus Code'
         fill_in 'Senha', with: '123'
         fill_in 'Confirmação da senha', with: '123'
-        fill_in 'Current password', with: 'password'
-        click_on 'Update'
+        fill_in 'Senha atual', with: 'password'
+        click_on 'Editar'
 
         assert_no_link 'campuscode@iugu.com.br'
         assert_no_text 'Sua conta foi atualizada com sucesso.'
@@ -189,11 +194,11 @@ class AuthenticationTest < ApplicationSystemTestCase
 
         click_on 'jane.doe@iugu.com.br'
         fill_in 'Email', with: 'campuscode@iugu.com.br'
-        fill_in 'Name', with: 'Campus Code'
+        fill_in 'Nome', with: 'Campus Code'
         fill_in 'Senha', with: '123456'
         fill_in 'Confirmação da senha', with: 'abcdef'
-        fill_in 'Current password', with: 'password'
-        click_on 'Update'
+        fill_in 'Senha atual', with: 'password'
+        click_on 'Editar'
 
         assert_no_link 'campuscode@iugu.com.br'
         assert_no_text 'Sua conta foi atualizada com sucesso.'
@@ -210,7 +215,7 @@ class AuthenticationTest < ApplicationSystemTestCase
         visit root_path
 
         click_on 'jane.doe@iugu.com.br'
-        accept_confirm {click_on 'Cancel my account'}
+        accept_confirm {click_on 'Cancelar minha conta'}
         assert_text 'Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve.'
         assert_no_text 'Sua conta foi atualizada com sucesso.'
         assert_current_path root_path
