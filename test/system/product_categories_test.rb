@@ -130,5 +130,55 @@ class ProductCategoriesTest < ApplicationSystemTestCase
         click_on 'Deletar Categoria de Produto'
         assert_text 'Nenhuma Categoria de Produtos cadastrada'
     end
+
+    test 'search product categories by term and finds results' do
+        user = login_user
+        antifra = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        premium = ProductCategory.create!(name: 'Produto Premium', code: 'PREMIUM')
+        antiruido = ProductCategory.create!(name: 'Produto AntiRuido', code: 'ANTIRUIDO')
+        visit root_path
+        click_on 'Categorias de Produtos'
+        fill_in 'Busca', with: 'anti'
+        click_on 'Buscar'
+    
+        assert_text antifra.name
+        assert_text antiruido.name
+        assert_no_text premium.name
+    end
+
+    test 'search product categories by term and finds nothing' do
+        user = login_user
+        antifra = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        premium = ProductCategory.create!(name: 'Produto Premium', code: 'PREMIUM')
+        antiruido = ProductCategory.create!(name: 'Produto AntiRuido', code: 'ANTIRUIDO')
+        visit root_path
+        click_on 'Categorias de Produtos'
+        fill_in 'Busca', with: 'carnaval'
+        click_on 'Buscar'
+    
+        assert_no_text antifra.name
+        assert_no_text antiruido.name
+        assert_no_text premium.name
+    end
+
+    test 'do not search product categories by term using route without login' do
+        visit search_product_categories_path
+        assert_no_link 'Buscar'
+        assert_current_path new_user_session_path
+    end
+
+    test 'do not search product categories by params using route without login' do
+        antifra = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
+        premium = ProductCategory.create!(name: 'Produto Premium', code: 'PREMIUM')
+        antiruido = ProductCategory.create!(name: 'Produto AntiRuido', code: 'ANTIRUIDO')
+    
+        visit search_product_categories_path(q: 'carnaval')
+    
+        assert_no_text antifra.name
+        assert_no_text antiruido.name
+        assert_no_text premium.name
+    
+        assert_current_path new_user_session_path
+    end
     
 end

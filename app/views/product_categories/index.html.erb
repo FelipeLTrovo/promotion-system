@@ -3,10 +3,18 @@
 <% end%>
 
 <% @product_categories.each do |product_category| %>
-    <h3><%= link_to product_category.name, product_category %></h3>
+    <h3><%= link_to "#{product_category.name} - #{product_category.code}", product_category %></h3>
     <%= link_to "Editar #{t('activerecord.models.product_category.one')}", edit_product_category_path(product_category.id) %>
     <%= link_to "Deletar #{t('activerecord.models.product_category.one')}", product_category_path(product_category.id), method: :delete %>
 <% end %>
+
+<%=form_with url: search_product_categories_path, method: :get do |f| %>
+    <%= f.label :q, 'Busca' %>
+    <%= f.text_field :q %>
+    <%= f.submit 'Buscar' %>
+<% end %>
+
+
 <div>
 <%= link_to 'Voltar', root_path %>
 <%= link_to "Registrar #{t('activerecord.models.product_category.one')}", new_product_category_path %>

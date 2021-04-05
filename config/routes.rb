@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
-  resources :product_categories, only: %i[index show new create edit update destroy]
+  resources :product_categories, only: %i[index show new create edit update destroy] do
+    get 'search', on: :collection
+  end
 
   resources :coupons, only: [] do
     post 'disable', on: :member

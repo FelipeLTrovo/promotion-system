@@ -41,6 +41,11 @@ class ProductCategoriesController < ApplicationController
         end
     end
 
+    def search
+        @product_categories = ProductCategory.search(params[:q])
+        render :index
+    end
+
     private
 
         def product_category_params
