@@ -30,7 +30,7 @@
     </div>
     <div>
         <%= f.label :expiration_date %>
-        <%= f.date_field :expiration_date %>
+        <%= f.text_field :expiration_date %> #Changed to text_field instead date_field to avoid date format issues
     </div>
     <%= f.submit %>
     <% end%>
