@@ -13,7 +13,8 @@ pt-BR:
     attributes:
       coupon:
         code: Código
-        name: Nome
+        discount_rate: Valor de Desconto
+        promotion: Promoção
       coupon/status:
         active: ativo
         disabled: desabilitado

@@ -15,9 +15,10 @@ Rails.application.routes.draw do
     get 'search', on: :collection
   end
 
-  resources :coupons, only: [] do
+  resources :coupons, only: %i[show] do
     post 'disable', on: :member
     post 'enable', on: :member
+    get 'search', on: :collection
   end
 
   namespace :api, constraints: ->(req) { req.format == :json } do

@@ -1,0 +1,11 @@
+<h3><%= @coupon.code %></h3>
+<dl>
+    <dt><%= Coupon.human_attribute_name(:code) %></dt>
+    <dd><%= @coupon.code %></dd>
+    <dt><%= Coupon.human_attribute_name(:discount_rate) %></dt>
+    <dd><%= number_to_percentage @coupon.discount_rate, precision: 2 %></dd>
+    <dt><%= Coupon.human_attribute_name(:status) %></dt>
+    <dd><%= @coupon.status.humanize %></dd>
+    <dt><%= Coupon.human_attribute_name(:promotion) %></dt>
+    <dd><%= @coupon.promotion.name %></dd>
+</dl>

@@ -22,3 +22,9 @@
     <%= f.text_field :q %>
     <%= f.submit 'Buscar' %>
 <% end %>
+
+<%=form_with url: search_coupons_path, method: :get do |f| %>
+    <%= f.label :code, 'Buscar cupom por código' %>
+    <%= f.text_field :code %>
+    <%= f.submit 'Buscar Cupom' %>
+<% end %>
