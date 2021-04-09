@@ -23,7 +23,8 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: ->(req) { req.format == :json } do
     namespace :v1 do
-      resources :coupons, only: [:show], param: :code
+      resources :coupons, only: %i[show], param: :code
+      resources :product_categories, only: %i[show create update destroy], param: :code
         
     end
   end
