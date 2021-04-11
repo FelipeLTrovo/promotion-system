@@ -10,6 +10,10 @@
     <dd><%= @promotion.expiration_date.strftime '%d/%m/%Y' %></dd>
     <dt><%= Promotion.human_attribute_name(:coupon_quantity) %></dt>
     <dd><%= @promotion.coupon_quantity %></dd>
+    <dt><%= Promotion.human_attribute_name(:product_categories) %></dt>
+    <% @promotion.product_categories.each do |product_category| %>
+        <dd><%= product_category.name %></dd>
+    <% end%>
 </dl>
 
 <% if @promotion.approved? %>

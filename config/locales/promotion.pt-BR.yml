@@ -19,4 +19,5 @@ pt-BR:
         description: Descrição
         discount_rate: Desconto
         coupon_quantity: Quantidade de cupons
-        expiration_date: Data de término       
+        expiration_date: Data de término
+        product_categories: Categorias de Produtos       

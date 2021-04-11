@@ -87,6 +87,7 @@ class PromotionsTest < ApplicationSystemTestCase
 
   test 'create promotion' do
     login_user
+    ProductCategory.create!(name: 'Categoria', code: 'CAT')
     visit root_path
     click_on 'Promoções'
     click_on 'Registrar Promoção'
@@ -96,6 +97,7 @@ class PromotionsTest < ApplicationSystemTestCase
     fill_in 'Desconto', with: '15'
     fill_in 'Quantidade de cupons', with: '90'
     fill_in 'Data de término', with: '22/12/2033'
+    check 'Categoria'
     click_on 'Criar Promoção'
 
     assert_current_path promotion_path(Promotion.last)
@@ -105,6 +107,7 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_text 'CYBER15'
     assert_text '22/12/2033'
     assert_text '90'
+    assert_text 'Categoria'
     assert_link 'Voltar'
   end
 

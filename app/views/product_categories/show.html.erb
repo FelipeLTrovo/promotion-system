@@ -4,6 +4,10 @@
     <dd><%= @product_category.name %></dd>
     <dt><%= ProductCategory.human_attribute_name(:code) %></dt>
     <dd><%= @product_category.code %></dd>
+    <dt><%= ProductCategory.human_attribute_name(:promotions) %></dt>
+    <% @product_category.promotions.each do |promotion| %>
+        <dd><%= promotion.name %></dd>
+    <% end%>
 </dl>
 
 <%= link_to 'Voltar', product_categories_path %>

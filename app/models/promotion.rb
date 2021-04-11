@@ -1,6 +1,7 @@
 class Promotion < ApplicationRecord
     belongs_to :user
     has_many :coupons, dependent: :delete_all
+    has_and_belongs_to_many :product_categories
     has_one :promotion_approval
     has_one :approver, through: :promotion_approval, source: :user
 

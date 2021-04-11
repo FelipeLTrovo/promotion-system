@@ -30,7 +30,13 @@
     </div>
     <div>
         <%= f.label :expiration_date %>
-        <%= f.text_field :expiration_date %> #Changed to text_field instead date_field to avoid date format issues
+        <%= f.text_field :expiration_date %> <!--Changed to text_field instead date_field to avoid date format issues-->
     </div>
+    <% if @product_categories %>
+        <div>
+            <%= f.label :product_categories %>
+            <%= f.collection_check_boxes :product_category_ids, @product_categories, :id, :name %>
+        </div>
+    <% end %>
     <%= f.submit %>
     <% end%>

@@ -13,6 +13,7 @@ class PromotionsController < ApplicationController
 
     def new
         @promotion = Promotion.new
+        @product_categories = ProductCategory.all
     end
 
     def create
@@ -25,6 +26,7 @@ class PromotionsController < ApplicationController
     end
 
     def edit
+        @product_categories = ProductCategory.all
     end
 
     def update
@@ -67,7 +69,7 @@ class PromotionsController < ApplicationController
             params
             .require(:promotion)
             .permit(:name, :expiration_date, :description,
-                    :discount_rate, :code, :coupon_quantity)
+                    :discount_rate, :code, :coupon_quantity, product_category_ids: [])
         end
 
         def can_be_approved
